@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Unzip project
-          run: unzip -o socialisme-en-debat-modern.zip -x "*.github/*" -d .
+          run: unzip -o socialisme-en-debat.zip -x "*.github/*" -d .
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
