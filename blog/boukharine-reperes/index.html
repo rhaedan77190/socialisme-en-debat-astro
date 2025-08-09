@@ -1,0 +1,202 @@
+<!DOCTYPE html><html lang="fr" class="h-full" style="color-scheme: light dark"> <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Repères rapides pour situer Boukharine dans le paysage intellectuel et politique."><meta name="generator" content="Astro"><meta name="theme-color" content="#e23636"><link rel="icon" href="/favicon.svg" type="image/svg+xml"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="dns-prefetch" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400..800&display=swap" rel="stylesheet"><meta property="og:title" content="Nikolaï Boukharine : points de repère"><meta property="og:description" content="Repères rapides pour situer Boukharine dans le paysage intellectuel et politique."><meta property="og:image" content="/og-image.svg"><meta property="og:type" content="website"><meta name="twitter:card" content="summary_large_image"><title>Nikolaï Boukharine : points de repère</title><script>
+      // Thème sans flash
+      (() => {
+        try {
+          const stored = localStorage.getItem('theme');
+          const systemDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          const isDark = stored ? stored === 'dark' : systemDark;
+          if (isDark) document.documentElement.classList.add('dark');
+        } catch {}
+      })();
+    </script><link rel="stylesheet" href="/_astro/_slug_.D1C4aKlq.css"></head> <body class="min-h-screen"> <div class="fixed left-0 right-0 top-0 z-50 h-[3px] bg-brand-600 origin-left scale-x-0" id="reading-progress" aria-hidden="true"></div> <script>
+  const bar = document.getElementById('reading-progress');
+  const onScroll = () => {
+    const doc = document.documentElement;
+    const total = doc.scrollHeight - doc.clientHeight;
+    const prog = total > 0 ? (doc.scrollTop / total) : 0;
+    bar.style.transform = `scaleX(${prog})`;
+  };
+  document.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
+  onScroll();
+</script> <header class="sticky top-0 z-40 backdrop-blur bg-paper/70 dark:bg-neutral-900/70 border-b border-neutral-200 dark:border-neutral-800"> <div class="mx-auto max-w-4xl px-4 py-3 flex items-center gap-3"> <a href="/" class="flex items-center gap-2 font-semibold"> <img src="/logo.svg" alt="" class="h-6 w-6"> <span class="font-serif tracking-tight text-lg">Socialisme en débat</span> </a> <nav class="ml-auto hidden md:flex items-center gap-5"> <a href="/blog" class="hover:underline">Blog</a> <a href="/tags" class="hover:underline">Tags</a> <a href="/rss.xml" class="hover:underline" rel="alternate" type="application/rss+xml">RSS</a> <div class="relative w-64"> <input id="search" type="search" placeholder="Rechercher…" class="w-full rounded-md bg-white/80 dark:bg-neutral-800/80 ring-1 ring-neutral-300 dark:ring-neutral-700 px-3 py-1.5 text-sm focus:outline-none"> <div id="results" class="absolute left-0 right-0 mt-2 hidden max-h-80 overflow-auto rounded-md border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-lg"></div> </div> <script type="module">
+  import Fuse from "fuse.js";
+
+  const wrapper = document.currentScript.previousElementSibling;
+  const input = wrapper.querySelector('#search');
+  const resultsEl = wrapper.querySelector('#results');
+
+  let fuse, data = [];
+
+  const renderResults = (items) => {
+    if (!items.length) {
+      resultsEl.innerHTML = '';
+      resultsEl.classList.add('hidden');
+      return;
+    }
+    resultsEl.classList.remove('hidden');
+    resultsEl.innerHTML = items.slice(0, 8).map(({ item }) => `
+      <a href="${item.url}" class="block p-3 hover:bg-neutral-50 dark:hover:bg-neutral-800">
+        <div class="font-medium">${item.title}</div>
+        <div class="text-xs text-neutral-600 dark:text-neutral-400">${item.description ?? ''}</div>
+        <div class="mt-1 flex gap-2 flex-wrap">${(item.tags || []).map(t => `<span class="chip">#${t}</span>`).join('')}</div>
+      </a>
+    `).join('');
+  };
+
+  async function ensureIndex() {
+    if (fuse) return;
+    const res = await fetch('/search.json');
+    data = await res.json();
+    fuse = new Fuse(data, {
+      includeScore: true,
+      threshold: 0.35,
+      ignoreLocation: true,
+      keys: [
+        { name: 'title', weight: 0.5 },
+        { name: 'description', weight: 0.3 },
+        { name: 'tags', weight: 0.2 },
+        { name: 'content', weight: 0.15 }
+      ]
+    });
+  }
+
+  input.addEventListener('focus', ensureIndex);
+  input.addEventListener('input', async (e) => {
+    await ensureIndex();
+    const q = e.target.value.trim();
+    if (!q) { renderResults([]); return; }
+    const matches = fuse.search(q);
+    renderResults(matches);
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!resultsEl.contains(e.target) && e.target !== input) {
+      resultsEl.classList.add('hidden');
+    }
+  });
+</script> <button id="theme-toggle" class="btn" aria-label="Basculer le thème" title="Thème"> <span id="theme-icon" aria-hidden="true">🌗</span> </button> <script>
+  const btn = document.getElementById('theme-toggle');
+  const icon = document.getElementById('theme-icon');
+
+  function setTheme(mode) {
+    document.documentElement.classList.toggle('dark', mode === 'dark');
+    localStorage.setItem('theme', mode);
+    icon.textContent = mode === 'dark' ? '🌖' : '🌘';
+  }
+  function getTheme() {
+    const stored = localStorage.getItem('theme');
+    if (stored) return stored;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  btn.addEventListener('click', () => {
+    const current = getTheme();
+    setTheme(current === 'dark' ? 'light' : 'dark');
+  });
+  setTheme(getTheme());
+</script> </nav> <div class="ml-auto md:hidden flex items-center gap-2"> <div class="relative w-40"> <input id="search" type="search" placeholder="Rechercher…" class="w-full rounded-md bg-white/80 dark:bg-neutral-800/80 ring-1 ring-neutral-300 dark:ring-neutral-700 px-3 py-1.5 text-sm focus:outline-none"> <div id="results" class="absolute left-0 right-0 mt-2 hidden max-h-80 overflow-auto rounded-md border border-neutral-200 dark:border-neutral-700 bg-white dark:bg-neutral-900 shadow-lg"></div> </div> <script type="module">
+  import Fuse from "fuse.js";
+
+  const wrapper = document.currentScript.previousElementSibling;
+  const input = wrapper.querySelector('#search');
+  const resultsEl = wrapper.querySelector('#results');
+
+  let fuse, data = [];
+
+  const renderResults = (items) => {
+    if (!items.length) {
+      resultsEl.innerHTML = '';
+      resultsEl.classList.add('hidden');
+      return;
+    }
+    resultsEl.classList.remove('hidden');
+    resultsEl.innerHTML = items.slice(0, 8).map(({ item }) => `
+      <a href="${item.url}" class="block p-3 hover:bg-neutral-50 dark:hover:bg-neutral-800">
+        <div class="font-medium">${item.title}</div>
+        <div class="text-xs text-neutral-600 dark:text-neutral-400">${item.description ?? ''}</div>
+        <div class="mt-1 flex gap-2 flex-wrap">${(item.tags || []).map(t => `<span class="chip">#${t}</span>`).join('')}</div>
+      </a>
+    `).join('');
+  };
+
+  async function ensureIndex() {
+    if (fuse) return;
+    const res = await fetch('/search.json');
+    data = await res.json();
+    fuse = new Fuse(data, {
+      includeScore: true,
+      threshold: 0.35,
+      ignoreLocation: true,
+      keys: [
+        { name: 'title', weight: 0.5 },
+        { name: 'description', weight: 0.3 },
+        { name: 'tags', weight: 0.2 },
+        { name: 'content', weight: 0.15 }
+      ]
+    });
+  }
+
+  input.addEventListener('focus', ensureIndex);
+  input.addEventListener('input', async (e) => {
+    await ensureIndex();
+    const q = e.target.value.trim();
+    if (!q) { renderResults([]); return; }
+    const matches = fuse.search(q);
+    renderResults(matches);
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!resultsEl.contains(e.target) && e.target !== input) {
+      resultsEl.classList.add('hidden');
+    }
+  });
+</script> <button id="theme-toggle" class="btn" aria-label="Basculer le thème" title="Thème"> <span id="theme-icon" aria-hidden="true">🌗</span> </button> <script>
+  const btn = document.getElementById('theme-toggle');
+  const icon = document.getElementById('theme-icon');
+
+  function setTheme(mode) {
+    document.documentElement.classList.toggle('dark', mode === 'dark');
+    localStorage.setItem('theme', mode);
+    icon.textContent = mode === 'dark' ? '🌖' : '🌘';
+  }
+  function getTheme() {
+    const stored = localStorage.getItem('theme');
+    if (stored) return stored;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  btn.addEventListener('click', () => {
+    const current = getTheme();
+    setTheme(current === 'dark' ? 'light' : 'dark');
+  });
+  setTheme(getTheme());
+</script> </div> </div> </header> <main class="mx-auto max-w-3xl px-4 py-8 md:py-12">  <article class="prose prose-neutral dark:prose-invert max-w-none"> <header class="not-prose mb-6 border-b border-neutral-200 dark:border-neutral-800 pb-6"> <h1 class="font-serif tracking-tight text-3xl md:text-4xl">Nikolaï Boukharine : points de repère</h1> <div class="mt-2 text-sm text-neutral-600 dark:text-neutral-400">3 août 2025</div> <div class="mt-3 flex flex-wrap gap-2"> <a class="chip hover:bg-neutral-50 dark:hover:bg-neutral-800" href="/tags/URSS/">#URSS</a><a class="chip hover:bg-neutral-50 dark:hover:bg-neutral-800" href="/tags/Boukharine/">#Boukharine</a><a class="chip hover:bg-neutral-50 dark:hover:bg-neutral-800" href="/tags/histoire/">#histoire</a> </div> </header> <div class="grid grid-cols-1 md:grid-cols-[1fr_260px] gap-10"> <div class="min-w-0"> <h2 id="pourquoi-boukharine-compte">Pourquoi Boukharine compte</h2>
+<p>Entre théorie économique, débats sur la NEP et tragédie politique, Boukharine condense un siècle de tensions.</p>
+<h2 id="trois-lignes-de-force">Trois lignes de force</h2>
+<ol>
+<li><strong>Économie</strong> — la croissance « à pas de tortue » vs. industrialisation accélérée.</li>
+<li><strong>Politique</strong> — la coalition et ses limites.</li>
+<li><strong>Biographie</strong> — l’intellectuel, le militant, l’accusé.</li>
+</ol>
+<h2 id="à-lire-ensuite">À lire ensuite</h2>
+<ul>
+<li>Articles des années 1920.</li>
+<li>Procès et réhabilitations.</li>
+<li>Réceptions contemporaines.</li>
+</ul> </div> <aside class="not-prose border-l-2 border-neutral-200 dark:border-neutral-800 pl-4 py-2 text-sm sticky top-24 max-h-[70vh] overflow-auto"><div class="mb-2 font-medium uppercase tracking-wide text-xs text-neutral-500">Sommaire</div><nav><ul class="space-y-1"><li class=""><a href="#pourquoi-boukharine-compte" class="block hover:underline" data-toc-slug="pourquoi-boukharine-compte">Pourquoi Boukharine compte</a></li><li class=""><a href="#trois-lignes-de-force" class="block hover:underline" data-toc-slug="trois-lignes-de-force">Trois lignes de force</a></li><li class=""><a href="#à-lire-ensuite" class="block hover:underline" data-toc-slug="à-lire-ensuite">À lire ensuite</a></li></ul></nav></aside><script>
+  // Highlight de la section active
+  const links = Array.from(document.querySelectorAll('[data-toc-slug]'));
+  const map = new Map(links.map(a => [a.dataset.tocSlug, a]));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const id = entry.target.getAttribute('id');
+      const link = map.get(id);
+      if (!link) return;
+      if (entry.isIntersecting) {
+        links.forEach(l => l.classList.remove('text-brand-600', 'font-medium'));
+        link.classList.add('text-brand-600', 'font-medium');
+      }
+    });
+  }, { rootMargin: '0px 0px -70% 0px' });
+
+  document.querySelectorAll('article h2[id], article h3[id]').forEach(h => observer.observe(h));
+</script> </div> </article>  </main> <footer class="border-t border-neutral-200 dark:border-neutral-800"> <div class="mx-auto max-w-3xl px-4 py-10 text-sm text-neutral-600 dark:text-neutral-400"> <p class="font-serif text-lg">“Lire, contester, clarifier.”</p> <div class="mt-2">© 2025 Socialisme en débat · <a class="underline" href="/rss.xml">RSS</a></div> </div> </footer> </body></html>
